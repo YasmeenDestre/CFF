@@ -152,16 +152,19 @@ st.markdown('<p style="font-size: 1.1rem; color: #666666; text-align: center; ma
 st.sidebar.markdown("## Filters")
 
 # Region filter
+st.sidebar.markdown(f'<p style="color: {CFF_BLUE}; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem;">Region:</p>', unsafe_allow_html=True)
 regions = ['All'] + sorted(df['Region'].unique().tolist())
-selected_region = st.sidebar.selectbox('Region', regions)
+selected_region = st.sidebar.selectbox('Region', regions, label_visibility='collapsed')
 
 # Sector filter
+st.sidebar.markdown(f'<p style="color: {CFF_BLUE}; font-weight: 600; margin-bottom: 5px; margin-top: 15px; font-size: 0.9rem;">Sector:</p>', unsafe_allow_html=True)
 sectors = ['All'] + sorted(df['Sector'].unique().tolist())
-selected_sector = st.sidebar.selectbox('Sector', sectors)
+selected_sector = st.sidebar.selectbox('Sector', sectors, label_visibility='collapsed')
 
 # Finance status filter
+st.sidebar.markdown(f'<p style="color: {CFF_BLUE}; font-weight: 600; margin-bottom: 5px; margin-top: 15px; font-size: 0.9rem;">Finance Status:</p>', unsafe_allow_html=True)
 finance_status = ['All'] + sorted(df['Link to finance'].unique().tolist())
-selected_finance = st.sidebar.selectbox('Finance Status', finance_status)
+selected_finance = st.sidebar.selectbox('Finance Status', finance_status, label_visibility='collapsed')
 
 # Apply filters
 filtered_df = df.copy()
@@ -346,12 +349,17 @@ st.dataframe(
 )
 
 # Download button
-st.download_button(
-    label="Download Data (CSV)",
-    data=filtered_df.to_csv(index=False).encode('utf-8'),
-    file_name='cff_phase3_data.csv',
-    mime='text/csv'
-)
+st.markdown("")
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    csv_data = filtered_df.to_csv(index=False).encode('utf-8')
+    st.download_button(
+        label="📥 Download Data (CSV)",
+        data=csv_data,
+        file_name='cff_phase3_data.csv',
+        mime='text/csv',
+        use_container_width=True
+    )
 
 # Footer
 st.markdown("---")
