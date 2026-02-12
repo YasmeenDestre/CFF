@@ -135,9 +135,11 @@ st.markdown(f"""
 def load_data():
     df = pd.read_excel('data.xlsx')
     df.columns = df.columns.str.strip()
-    df = df.rename(columns={'Investment volume': 'Investment'})
-    if 'Investment volume ' in df.columns:
-        df = df.rename(columns={'Investment volume ': 'Investment'})
+    # Rename investment column
+    for col in df.columns:
+        if 'investment' in col.lower():
+            df = df.rename(columns={col: 'Investment'})
+            break
     return df
 
 df = load_data()
