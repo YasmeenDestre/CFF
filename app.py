@@ -33,25 +33,22 @@ st.markdown(f"""
 
     /* Header styling */
     .main-header {{
-        font-size: 3rem;
-        font-weight: 700;
+        font-size: 3.5rem;
+        font-weight: 800;
         color: {CFF_BLUE};
         text-align: center;
         margin-bottom: 5px;
-        padding: 15px 0;
+        padding: 20px 0 10px 0;
+        letter-spacing: 2px;
     }}
 
     .sub-header {{
-        font-size: 1.2rem;
-        color: {CFF_GREY};
+        font-size: 1.1rem;
+        color: #666;
         text-align: center;
         margin-bottom: 30px;
         font-weight: 400;
-        border-bottom: 3px solid {CFF_GREEN};
-        padding-bottom: 20px;
-        max-width: 400px;
-        margin-left: auto;
-        margin-right: auto;
+        padding-bottom: 15px;
     }}
 
     /* Sidebar - subtle */
@@ -146,8 +143,8 @@ def load_data():
 df = load_data()
 
 # Header
-st.markdown('<h1 class="main-header">Phase 3 - Example</h1>', unsafe_allow_html=True)
-st.markdown('<p class="sub-header">C40 Cities Finance Facility</p>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-header">C40 Cities Finance Facility</h1>', unsafe_allow_html=True)
+st.markdown('<p class="sub-header">Phase 3 - Example</p>', unsafe_allow_html=True)
 
 # Sidebar filters
 st.sidebar.markdown("## Filters")
@@ -222,14 +219,15 @@ with col1:
     fig_region.update_traces(
         textposition='outside',
         textinfo='percent+label',
-        textfont_size=12
+        textfont=dict(size=14, color='#333333')
     )
     fig_region.update_layout(
-        margin=dict(t=30, b=30, l=30, r=30),
-        font=dict(family="Arial", size=11, color="#333"),
+        margin=dict(t=40, b=40, l=40, r=40),
+        font=dict(family="Arial", size=12, color="#333333"),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        showlegend=False
+        showlegend=True,
+        legend=dict(font=dict(size=12, color='#333333'))
     )
     st.plotly_chart(fig_region, use_container_width=True)
 
@@ -248,8 +246,9 @@ with col2:
         showlegend=False,
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        yaxis=dict(gridcolor='rgba(0,0,0,0)'),
-        xaxis=dict(gridcolor='rgba(0,79,120,0.1)')
+        yaxis=dict(gridcolor='rgba(0,0,0,0)', tickfont=dict(color='#333333', size=12)),
+        xaxis=dict(gridcolor='rgba(0,79,120,0.1)', tickfont=dict(color='#333333', size=11)),
+        font=dict(color='#333333')
     )
     st.plotly_chart(fig_sector, use_container_width=True)
 
@@ -272,8 +271,9 @@ with col1:
         xaxis_tickangle=-30,
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        yaxis=dict(gridcolor='rgba(0,79,120,0.1)'),
-        xaxis=dict(gridcolor='rgba(0,0,0,0)')
+        yaxis=dict(gridcolor='rgba(0,79,120,0.1)', tickfont=dict(color='#333333', size=11)),
+        xaxis=dict(gridcolor='rgba(0,0,0,0)', tickfont=dict(color='#333333', size=11)),
+        font=dict(color='#333333')
     )
     st.plotly_chart(fig_finance, use_container_width=True)
 
@@ -292,8 +292,9 @@ with col2:
         margin=dict(t=20, b=20, l=20, r=20),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        yaxis=dict(gridcolor='rgba(0,0,0,0)'),
-        xaxis=dict(gridcolor='rgba(0,158,48,0.1)')
+        yaxis=dict(gridcolor='rgba(0,0,0,0)', tickfont=dict(color='#333333', size=12)),
+        xaxis=dict(gridcolor='rgba(0,158,48,0.1)', tickfont=dict(color='#333333', size=11)),
+        font=dict(color='#333333')
     )
     st.plotly_chart(fig_top, use_container_width=True)
 
@@ -313,10 +314,12 @@ fig_treemap = px.treemap(
 )
 fig_treemap.update_layout(
     margin=dict(t=20, b=20, l=20, r=20),
-    paper_bgcolor='rgba(0,0,0,0)'
+    paper_bgcolor='rgba(0,0,0,0)',
+    font=dict(color='#333333')
 )
 fig_treemap.update_traces(
-    textfont=dict(color='white', size=12)
+    textfont=dict(color='white', size=14),
+    textinfo='label+value'
 )
 st.plotly_chart(fig_treemap, use_container_width=True)
 
