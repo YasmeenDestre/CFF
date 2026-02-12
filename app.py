@@ -158,6 +158,13 @@ def load_data():
         if 'investment' in col.lower():
             df = df.rename(columns={col: 'Investment'})
             break
+    # Clean city names
+    df['City'] = df['City'].replace({
+        'Cape Town A': 'Cape Town',
+        'Cape Town E': 'Cape Town',
+        'Kuala Lumpur DCS': 'Kuala Lumpur',
+        'Kuala Lumpur E': 'Kuala Lumpur'
+    })
     return df
 
 df = load_data()
