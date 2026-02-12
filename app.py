@@ -74,21 +74,39 @@ st.markdown(f"""
     }}
 
     /* Data table styling */
-    [data-testid="stDataFrame"] {{
+    [data-testid="stTable"] {{
         background-color: white !important;
     }}
 
-    [data-testid="stDataFrame"] div {{
+    [data-testid="stTable"] table {{
         background-color: white !important;
+        color: #1a1a1a !important;
     }}
 
-    .stDataFrame {{
-        background-color: white !important;
+    [data-testid="stTable"] th {{
+        background-color: {CFF_BLUE} !important;
+        color: white !important;
     }}
 
-    /* Ensure all table elements are white/readable */
-    iframe {{
+    [data-testid="stTable"] td {{
         background-color: white !important;
+        color: #1a1a1a !important;
+    }}
+
+    .stTable table {{
+        color: #1a1a1a !important;
+    }}
+
+    .stTable td, .stTable th {{
+        color: #1a1a1a !important;
+    }}
+
+    table {{
+        color: #1a1a1a !important;
+    }}
+
+    td, th {{
+        color: #1a1a1a !important;
     }}
 
     /* Section headers */
