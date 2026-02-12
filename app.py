@@ -325,19 +325,24 @@ with col2:
 st.markdown("---")
 st.subheader("Investment Distribution")
 st.caption("Click en una sección para explorar. Click en la barra superior para regresar.")
+
+# Colores por región
+region_colors = {
+    'Africa': '#2E86AB',      # Azul
+    'Asia': '#28A745',        # Verde
+    'LatAm': '#E85D04',       # Naranja
+}
+
+# Crear columna de color basada en región
+treemap_df = filtered_df.copy()
+treemap_df['RegionColor'] = treemap_df['Region'].map(region_colors)
+
 fig_treemap = px.treemap(
-    filtered_df,
+    treemap_df,
     path=['Region', 'Sector', 'City'],
     values='Investment',
-    color='Investment',
-    color_continuous_scale=[
-        [0, '#E3F2FD'],
-        [0.2, '#90CAF9'],
-        [0.4, '#42A5F5'],
-        [0.6, '#1E88E5'],
-        [0.8, '#1565C0'],
-        [1, '#0D47A1']
-    ]
+    color='Region',
+    color_discrete_map=region_colors
 )
 fig_treemap.update_layout(
     margin=dict(t=30, b=20, l=20, r=20),
@@ -347,39 +352,22 @@ fig_treemap.update_layout(
 fig_treemap.update_traces(
     textfont=dict(color='white', size=13),
     marker=dict(line=dict(color='white', width=2)),
-    hovertemplate='<b>%{label}</b><br>Investment: $%{value:,.0f}<extra></extra>'
+    hovertemplate='<b>%{label}</b><br>Investment: $%{value:,.0f}<extra></extra>',
+    marker_depthfade=True
 )
 st.plotly_chart(fig_treemap, use_container_width=True)
 
 # Data table
 st.markdown("---")
-st.subheader("Project Details")
+st.markdown(f'<h3 style="color: {CFF_BLUE};">Project Details</h3>', unsafe_allow_html=True)
 
 display_df = filtered_df.copy()
 display_df['Investment'] = display_df['Investment'].apply(lambda x: f"${x:,.0f}")
 
-# Container with white background
-st.markdown("""
-<style>
-    .data-container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid #e0e0e0;
-    }
-</style>
-""", unsafe_allow_html=True)
-
 st.dataframe(
     display_df,
     use_container_width=True,
-    hide_index=True,
-    column_config={
-        "City": st.column_config.TextColumn("City", width="medium"),
-        "Region": st.column_config.TextColumn("Region", width="small"),
-        "Sector": st.column_config.TextColumn("Sector", width="medium"),
-        "Investment": st.column_config.TextColumn("Investment", width="medium"),
-    }
+    hide_index=True
 )
 
 # Download button
@@ -389,8 +377,7 @@ st.download_button(
     label="📥 Download Data (CSV)",
     data=csv_data,
     file_name='cff_phase3_data.csv',
-    mime='text/csv',
-    type="primary"
+    mime='text/csv'
 )
 
 # Footer
