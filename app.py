@@ -3,119 +3,118 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-# C40 CFF Brand Colors
-C40_GREEN = "#00A651"
-C40_DARK_GREEN = "#006837"
-C40_LIGHT_GREEN = "#39B54A"
-C40_YELLOW = "#FFC107"
-C40_DARK = "#1a1a2e"
+# C40 CFF Official Brand Colors
+CFF_BLUE = "#004f78"
+CFF_GREEN = "#009e30"
+CFF_PURPLE = "#720c78"
+CFF_LIGHT_GREEN = "#7db61c"
+CFF_YELLOW = "#ede100"
+CFF_GREY = "#d1d3d4"
+CFF_WHITE = "#ffffff"
 
-# Custom color scales for charts
-C40_GREENS = [C40_DARK_GREEN, C40_GREEN, C40_LIGHT_GREEN, "#7DC242", "#B5D334"]
-C40_PALETTE = [C40_GREEN, C40_DARK_GREEN, C40_LIGHT_GREEN, C40_YELLOW, "#2E7D32", "#81C784"]
+# Color palette for charts (blue, green, purple focus)
+CFF_PALETTE = [CFF_BLUE, CFF_GREEN, CFF_PURPLE, CFF_LIGHT_GREEN]
 
 # Page configuration
 st.set_page_config(
-    page_title="C40 CFF Investment Dashboard",
+    page_title="C40 CFF - Phase 3 Dashboard",
     page_icon="🌍",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS with C40 CFF branding
+# Custom CSS - Clean and sophisticated
 st.markdown(f"""
 <style>
-    /* Main background */
+    /* Clean background */
     .stApp {{
-        background: linear-gradient(180deg, #f8fdf8 0%, #ffffff 100%);
+        background-color: {CFF_WHITE};
     }}
 
     /* Header styling */
     .main-header {{
-        font-size: 3.5rem;
-        font-weight: 800;
-        background: linear-gradient(135deg, {C40_DARK_GREEN} 0%, {C40_GREEN} 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        font-size: 3rem;
+        font-weight: 700;
+        color: {CFF_BLUE};
         text-align: center;
-        margin-bottom: 10px;
-        padding: 20px 0;
+        margin-bottom: 5px;
+        padding: 15px 0;
     }}
 
     .sub-header {{
-        font-size: 1.3rem;
-        color: #555;
+        font-size: 1.2rem;
+        color: {CFF_GREY};
         text-align: center;
         margin-bottom: 30px;
         font-weight: 400;
+        border-bottom: 3px solid {CFF_GREEN};
+        padding-bottom: 20px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
     }}
 
-    /* Sidebar styling */
+    /* Sidebar - subtle */
     [data-testid="stSidebar"] {{
-        background: linear-gradient(180deg, {C40_DARK_GREEN} 0%, {C40_GREEN} 100%);
+        background-color: #f7f9fa;
+        border-right: 2px solid {CFF_BLUE};
     }}
 
-    [data-testid="stSidebar"] * {{
-        color: white !important;
-    }}
-
-    [data-testid="stSidebar"] .stSelectbox label {{
-        color: white !important;
-        font-weight: 600;
+    [data-testid="stSidebar"] .stMarkdown h2 {{
+        color: {CFF_BLUE} !important;
     }}
 
     /* Metric cards */
     [data-testid="stMetricValue"] {{
-        font-size: 2rem;
-        color: {C40_DARK_GREEN};
+        font-size: 1.8rem;
+        color: {CFF_BLUE};
         font-weight: 700;
     }}
 
     [data-testid="stMetricLabel"] {{
-        font-size: 1rem;
-        color: #333;
+        font-size: 0.95rem;
+        color: #555;
     }}
 
     /* Section headers */
-    .stSubheader {{
-        color: {C40_DARK_GREEN} !important;
-        font-weight: 600;
-    }}
-
     h3 {{
-        color: {C40_DARK_GREEN} !important;
+        color: {CFF_BLUE} !important;
+        font-weight: 600;
+        font-size: 1.1rem !important;
     }}
 
     /* Dividers */
     hr {{
-        border-color: {C40_GREEN} !important;
-        opacity: 0.3;
+        border: none;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, {CFF_GREY}, transparent);
+        margin: 25px 0;
     }}
 
     /* Download button */
     .stDownloadButton button {{
-        background-color: {C40_GREEN} !important;
+        background-color: {CFF_BLUE} !important;
         color: white !important;
         border: none;
-        font-weight: 600;
+        font-weight: 500;
+        border-radius: 5px;
     }}
 
     .stDownloadButton button:hover {{
-        background-color: {C40_DARK_GREEN} !important;
+        background-color: {CFF_PURPLE} !important;
     }}
 
     /* Mobile responsive */
     @media (max-width: 768px) {{
         .main-header {{
-            font-size: 2rem;
+            font-size: 1.8rem;
             padding: 10px 0;
         }}
         .sub-header {{
             font-size: 1rem;
         }}
         [data-testid="stMetricValue"] {{
-            font-size: 1.5rem;
+            font-size: 1.3rem;
         }}
     }}
 
@@ -123,14 +122,13 @@ st.markdown(f"""
     .footer {{
         text-align: center;
         padding: 20px;
-        color: #666;
-        font-size: 0.9rem;
+        color: #888;
+        font-size: 0.85rem;
     }}
 
     .footer a {{
-        color: {C40_GREEN};
+        color: {CFF_BLUE};
         text-decoration: none;
-        font-weight: 600;
     }}
 </style>
 """, unsafe_allow_html=True)
@@ -148,11 +146,11 @@ def load_data():
 df = load_data()
 
 # Header
-st.markdown('<h1 class="main-header">C40 Cities Finance Facility</h1>', unsafe_allow_html=True)
-st.markdown('<p class="sub-header">Investment Portfolio Dashboard</p>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-header">Phase 3 - Example</h1>', unsafe_allow_html=True)
+st.markdown('<p class="sub-header">C40 Cities Finance Facility</p>', unsafe_allow_html=True)
 
 # Sidebar filters
-st.sidebar.markdown("## 🔍 Filters")
+st.sidebar.markdown("## Filters")
 
 # Region filter
 regions = ['All'] + sorted(df['Region'].unique().tolist())
@@ -176,34 +174,33 @@ if selected_finance != 'All':
     filtered_df = filtered_df[filtered_df['Link to finance'] == selected_finance]
 
 # KPI Metrics
-st.markdown("---")
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     total_investment = filtered_df['Investment'].sum()
     st.metric(
-        label="💰 Total Investment",
+        label="Total Investment",
         value=f"${total_investment:,.0f}"
     )
 
 with col2:
     num_projects = len(filtered_df)
     st.metric(
-        label="📋 Projects",
+        label="Projects",
         value=num_projects
     )
 
 with col3:
     num_cities = filtered_df['City'].nunique()
     st.metric(
-        label="🏙️ Cities",
+        label="Cities",
         value=num_cities
     )
 
 with col4:
     avg_investment = filtered_df['Investment'].mean() if len(filtered_df) > 0 else 0
     st.metric(
-        label="📊 Avg. Investment",
+        label="Avg. Investment",
         value=f"${avg_investment:,.0f}"
     )
 
@@ -219,19 +216,20 @@ with col1:
         region_data,
         values='Investment',
         names='Region',
-        color_discrete_sequence=C40_PALETTE,
-        hole=0.4
+        color_discrete_sequence=[CFF_BLUE, CFF_GREEN, CFF_PURPLE],
+        hole=0.45
     )
     fig_region.update_traces(
-        textposition='inside',
+        textposition='outside',
         textinfo='percent+label',
-        textfont_size=14
+        textfont_size=12
     )
     fig_region.update_layout(
-        margin=dict(t=20, b=20, l=20, r=20),
-        font=dict(family="Arial", size=12),
+        margin=dict(t=30, b=30, l=30, r=30),
+        font=dict(family="Arial", size=11, color="#333"),
         paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)'
+        plot_bgcolor='rgba(0,0,0,0)',
+        showlegend=False
     )
     st.plotly_chart(fig_region, use_container_width=True)
 
@@ -243,17 +241,15 @@ with col2:
         x='Investment',
         y='Sector',
         orientation='h',
-        color='Investment',
-        color_continuous_scale=[[0, C40_LIGHT_GREEN], [0.5, C40_GREEN], [1, C40_DARK_GREEN]]
+        color_discrete_sequence=[CFF_BLUE]
     )
     fig_sector.update_layout(
         margin=dict(t=20, b=20, l=20, r=20),
         showlegend=False,
-        coloraxis_showscale=False,
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        yaxis=dict(gridcolor='rgba(0,166,81,0.1)'),
-        xaxis=dict(gridcolor='rgba(0,166,81,0.1)')
+        yaxis=dict(gridcolor='rgba(0,0,0,0)'),
+        xaxis=dict(gridcolor='rgba(0,79,120,0.1)')
     )
     st.plotly_chart(fig_sector, use_container_width=True)
 
@@ -268,62 +264,66 @@ with col1:
         x='Link to finance',
         y='Investment',
         color='Link to finance',
-        color_discrete_sequence=[C40_GREEN, C40_DARK_GREEN, C40_LIGHT_GREEN]
+        color_discrete_sequence=[CFF_GREEN, CFF_BLUE, CFF_PURPLE]
     )
     fig_finance.update_layout(
         margin=dict(t=20, b=20, l=20, r=20),
         showlegend=False,
-        xaxis_tickangle=-45,
+        xaxis_tickangle=-30,
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        yaxis=dict(gridcolor='rgba(0,166,81,0.1)'),
-        xaxis=dict(gridcolor='rgba(0,166,81,0.1)')
+        yaxis=dict(gridcolor='rgba(0,79,120,0.1)'),
+        xaxis=dict(gridcolor='rgba(0,0,0,0)')
     )
     st.plotly_chart(fig_finance, use_container_width=True)
 
 with col2:
-    st.subheader("Top 10 Projects by Investment")
+    st.subheader("Top Projects by Investment")
     top_projects = filtered_df.nlargest(10, 'Investment')[['City', 'Project', 'Investment']]
     fig_top = px.bar(
         top_projects.sort_values('Investment', ascending=True),
         x='Investment',
         y='City',
         orientation='h',
-        color='Investment',
-        color_continuous_scale=[[0, C40_LIGHT_GREEN], [0.5, C40_GREEN], [1, C40_DARK_GREEN]],
+        color_discrete_sequence=[CFF_GREEN],
         hover_data=['Project']
     )
     fig_top.update_layout(
         margin=dict(t=20, b=20, l=20, r=20),
-        coloraxis_showscale=False,
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        yaxis=dict(gridcolor='rgba(0,166,81,0.1)'),
-        xaxis=dict(gridcolor='rgba(0,166,81,0.1)')
+        yaxis=dict(gridcolor='rgba(0,0,0,0)'),
+        xaxis=dict(gridcolor='rgba(0,158,48,0.1)')
     )
     st.plotly_chart(fig_top, use_container_width=True)
 
-# Investment by Region and Sector (Treemap)
+# Treemap
 st.markdown("---")
-st.subheader("Investment Distribution (Region & Sector)")
+st.subheader("Investment Distribution")
 fig_treemap = px.treemap(
     filtered_df,
     path=['Region', 'Sector', 'City'],
     values='Investment',
-    color='Investment',
-    color_continuous_scale=[[0, "#E8F5E9"], [0.3, C40_LIGHT_GREEN], [0.6, C40_GREEN], [1, C40_DARK_GREEN]]
+    color='Region',
+    color_discrete_map={
+        'Africa': CFF_BLUE,
+        'Asia': CFF_GREEN,
+        'LatAm': CFF_PURPLE
+    }
 )
 fig_treemap.update_layout(
     margin=dict(t=20, b=20, l=20, r=20),
     paper_bgcolor='rgba(0,0,0,0)'
 )
+fig_treemap.update_traces(
+    textfont=dict(color='white', size=12)
+)
 st.plotly_chart(fig_treemap, use_container_width=True)
 
 # Data table
 st.markdown("---")
-st.subheader("📋 Project Details")
+st.subheader("Project Details")
 
-# Format investment column for display
 display_df = filtered_df.copy()
 display_df['Investment'] = display_df['Investment'].apply(lambda x: f"${x:,.0f}")
 
@@ -335,16 +335,16 @@ st.dataframe(
 
 # Download button
 st.download_button(
-    label="📥 Download Filtered Data (CSV)",
+    label="Download Data (CSV)",
     data=filtered_df.to_csv(index=False).encode('utf-8'),
-    file_name='cff_filtered_data.csv',
+    file_name='cff_phase3_data.csv',
     mime='text/csv'
 )
 
 # Footer
 st.markdown("---")
 st.markdown(
-    f'<p class="footer">C40 Cities Finance Facility Dashboard | '
+    f'<p class="footer">C40 Cities Finance Facility | '
     f'<a href="https://c40cff.org" target="_blank">c40cff.org</a></p>',
     unsafe_allow_html=True
 )
