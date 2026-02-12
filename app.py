@@ -366,16 +366,13 @@ st.plotly_chart(fig_treemap, use_container_width=True)
 
 # Data table
 st.markdown("---")
-st.markdown(f'<h3 style="color: {CFF_BLUE};">Project Details</h3>', unsafe_allow_html=True)
+st.subheader("Project Details")
 
-display_df = filtered_df.copy()
+display_df = filtered_df[['City', 'Region', 'Sector', 'Project', 'Investment', 'Link to finance']].copy()
 display_df['Investment'] = display_df['Investment'].apply(lambda x: f"${x:,.0f}")
+display_df = display_df.reset_index(drop=True)
 
-st.dataframe(
-    display_df,
-    use_container_width=True,
-    hide_index=True
-)
+st.table(display_df)
 
 # Download button
 st.markdown("")
