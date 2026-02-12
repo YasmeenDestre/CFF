@@ -342,13 +342,7 @@ fig_treemap = px.treemap(
 fig_treemap.update_layout(
     margin=dict(t=30, b=20, l=20, r=20),
     paper_bgcolor='white',
-    font=dict(color='#1a1a1a', size=13),
-    coloraxis_colorbar=dict(
-        title="USD",
-        tickformat="$,.0f",
-        tickfont=dict(color='#1a1a1a'),
-        titlefont=dict(color='#1a1a1a')
-    )
+    font=dict(color='#1a1a1a', size=13)
 )
 fig_treemap.update_traces(
     textfont=dict(color='white', size=13),
