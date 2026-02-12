@@ -219,15 +219,15 @@ with col1:
     fig_region.update_traces(
         textposition='outside',
         textinfo='percent+label',
-        textfont=dict(size=14, color='#333333')
+        textfont=dict(size=14, color='#1a1a1a')
     )
     fig_region.update_layout(
         margin=dict(t=40, b=40, l=40, r=40),
-        font=dict(family="Arial", size=12, color="#333333"),
+        font=dict(family="Arial", size=12, color="#1a1a1a"),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
         showlegend=True,
-        legend=dict(font=dict(size=12, color='#333333'))
+        legend=dict(font=dict(size=12, color='#1a1a1a'))
     )
     st.plotly_chart(fig_region, use_container_width=True)
 
@@ -246,9 +246,9 @@ with col2:
         showlegend=False,
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        yaxis=dict(gridcolor='rgba(0,0,0,0)', tickfont=dict(color='#333333', size=12)),
-        xaxis=dict(gridcolor='rgba(0,79,120,0.1)', tickfont=dict(color='#333333', size=11)),
-        font=dict(color='#333333')
+        yaxis=dict(gridcolor='rgba(0,0,0,0)', tickfont=dict(color='#1a1a1a', size=12)),
+        xaxis=dict(gridcolor='rgba(0,79,120,0.1)', tickfont=dict(color='#1a1a1a', size=11), title=dict(font=dict(color='#1a1a1a'))),
+        font=dict(color='#1a1a1a')
     )
     st.plotly_chart(fig_sector, use_container_width=True)
 
@@ -271,9 +271,9 @@ with col1:
         xaxis_tickangle=-30,
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        yaxis=dict(gridcolor='rgba(0,79,120,0.1)', tickfont=dict(color='#333333', size=11)),
-        xaxis=dict(gridcolor='rgba(0,0,0,0)', tickfont=dict(color='#333333', size=11)),
-        font=dict(color='#333333')
+        yaxis=dict(gridcolor='rgba(0,79,120,0.1)', tickfont=dict(color='#1a1a1a', size=11), title=dict(font=dict(color='#1a1a1a'))),
+        xaxis=dict(gridcolor='rgba(0,0,0,0)', tickfont=dict(color='#1a1a1a', size=11), title=dict(font=dict(color='#1a1a1a'))),
+        font=dict(color='#1a1a1a')
     )
     st.plotly_chart(fig_finance, use_container_width=True)
 
@@ -292,9 +292,9 @@ with col2:
         margin=dict(t=20, b=20, l=20, r=20),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        yaxis=dict(gridcolor='rgba(0,0,0,0)', tickfont=dict(color='#333333', size=12)),
-        xaxis=dict(gridcolor='rgba(0,158,48,0.1)', tickfont=dict(color='#333333', size=11)),
-        font=dict(color='#333333')
+        yaxis=dict(gridcolor='rgba(0,0,0,0)', tickfont=dict(color='#1a1a1a', size=12)),
+        xaxis=dict(gridcolor='rgba(0,158,48,0.1)', tickfont=dict(color='#1a1a1a', size=11), title=dict(font=dict(color='#1a1a1a'))),
+        font=dict(color='#1a1a1a')
     )
     st.plotly_chart(fig_top, use_container_width=True)
 
@@ -305,21 +305,28 @@ fig_treemap = px.treemap(
     filtered_df,
     path=['Region', 'Sector', 'City'],
     values='Investment',
-    color='Region',
-    color_discrete_map={
-        'Africa': CFF_BLUE,
-        'Asia': CFF_GREEN,
-        'LatAm': CFF_PURPLE
-    }
+    color='Investment',
+    color_continuous_scale=[
+        [0, '#e8f4f8'],
+        [0.25, CFF_GREEN],
+        [0.5, CFF_BLUE],
+        [0.75, CFF_PURPLE],
+        [1, '#4a0a4f']
+    ]
 )
 fig_treemap.update_layout(
     margin=dict(t=20, b=20, l=20, r=20),
     paper_bgcolor='rgba(0,0,0,0)',
-    font=dict(color='#333333')
+    font=dict(color='#333333'),
+    coloraxis_colorbar=dict(
+        title="Investment",
+        tickfont=dict(color='#333333', size=11),
+        titlefont=dict(color='#333333', size=12)
+    )
 )
 fig_treemap.update_traces(
-    textfont=dict(color='white', size=14),
-    textinfo='label+value'
+    textfont=dict(color='white', size=13),
+    textinfo='label'
 )
 st.plotly_chart(fig_treemap, use_container_width=True)
 
