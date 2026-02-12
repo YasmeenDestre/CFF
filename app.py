@@ -73,6 +73,24 @@ st.markdown(f"""
         color: #555;
     }}
 
+    /* Data table styling */
+    [data-testid="stDataFrame"] {{
+        background-color: white !important;
+    }}
+
+    [data-testid="stDataFrame"] div {{
+        background-color: white !important;
+    }}
+
+    .stDataFrame {{
+        background-color: white !important;
+    }}
+
+    /* Ensure all table elements are white/readable */
+    iframe {{
+        background-color: white !important;
+    }}
+
     /* Section headers */
     h3 {{
         color: {CFF_BLUE} !important;
@@ -310,16 +328,22 @@ fig_treemap = px.treemap(
     filtered_df,
     path=['Region', 'Sector', 'City'],
     values='Investment',
-    color='Investment',
-    color_continuous_scale='Blues'
+    color='Region',
+    color_discrete_map={
+        'Africa': '#2E86AB',
+        'Asia': '#A23B72',
+        'LatAm': '#F18F01',
+        '(?)': '#C73E1D'
+    }
 )
 fig_treemap.update_layout(
     margin=dict(t=20, b=20, l=20, r=20),
-    paper_bgcolor='rgba(0,0,0,0)',
-    font=dict(color='#1a1a1a')
+    paper_bgcolor='white',
+    font=dict(color='#1a1a1a', size=14)
 )
 fig_treemap.update_traces(
-    textfont=dict(color='white', size=13)
+    textfont=dict(color='white', size=14),
+    marker=dict(line=dict(color='white', width=2))
 )
 st.plotly_chart(fig_treemap, use_container_width=True)
 
