@@ -73,39 +73,16 @@ st.markdown(f"""
         color: #555;
     }}
 
-    /* Data table styling */
-    [data-testid="stTable"] {{
+    /* Data table styling - compact */
+    [data-testid="stDataFrame"] {{
         background-color: white !important;
     }}
 
-    [data-testid="stTable"] table {{
+    [data-testid="stDataFrame"] div[data-testid="stDataFrameResizable"] {{
         background-color: white !important;
-        color: #1a1a1a !important;
     }}
 
-    [data-testid="stTable"] th {{
-        background-color: {CFF_BLUE} !important;
-        color: white !important;
-    }}
-
-    [data-testid="stTable"] td {{
-        background-color: white !important;
-        color: #1a1a1a !important;
-    }}
-
-    .stTable table {{
-        color: #1a1a1a !important;
-    }}
-
-    .stTable td, .stTable th {{
-        color: #1a1a1a !important;
-    }}
-
-    table {{
-        color: #1a1a1a !important;
-    }}
-
-    td, th {{
+    .stDataFrame, .stDataFrame * {{
         color: #1a1a1a !important;
     }}
 
@@ -388,9 +365,13 @@ st.subheader("Project Details")
 
 display_df = filtered_df[['City', 'Region', 'Sector', 'Project', 'Investment', 'Link to finance']].copy()
 display_df['Investment'] = display_df['Investment'].apply(lambda x: f"${x:,.0f}")
-display_df = display_df.reset_index(drop=True)
 
-st.table(display_df)
+st.dataframe(
+    display_df,
+    height=300,
+    use_container_width=True,
+    hide_index=True
+)
 
 # Download button
 st.markdown("")
