@@ -143,8 +143,8 @@ def load_data():
 df = load_data()
 
 # Header
-st.markdown('<h1 class="main-header">C40 Cities Finance Facility</h1>', unsafe_allow_html=True)
-st.markdown('<p class="sub-header">Phase 3 - Example</p>', unsafe_allow_html=True)
+st.markdown(f'<h1 style="font-size: 3.5rem; font-weight: 800; color: {CFF_BLUE}; text-align: center; padding: 20px 0 10px 0;">C40 Cities Finance Facility</h1>', unsafe_allow_html=True)
+st.markdown('<p style="font-size: 1.1rem; color: #666666; text-align: center; margin-bottom: 30px;">Phase 3 - Example</p>', unsafe_allow_html=True)
 
 # Sidebar filters
 st.sidebar.markdown("## Filters")
