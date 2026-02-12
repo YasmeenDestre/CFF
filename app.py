@@ -311,27 +311,15 @@ fig_treemap = px.treemap(
     path=['Region', 'Sector', 'City'],
     values='Investment',
     color='Investment',
-    color_continuous_scale=[
-        [0, '#e8f4f8'],
-        [0.25, CFF_GREEN],
-        [0.5, CFF_BLUE],
-        [0.75, CFF_PURPLE],
-        [1, '#4a0a4f']
-    ]
+    color_continuous_scale='Blues'
 )
 fig_treemap.update_layout(
     margin=dict(t=20, b=20, l=20, r=20),
     paper_bgcolor='rgba(0,0,0,0)',
-    font=dict(color='#333333'),
-    coloraxis_colorbar=dict(
-        title="Investment",
-        tickfont=dict(color='#333333', size=11),
-        titlefont=dict(color='#333333', size=12)
-    )
+    font=dict(color='#1a1a1a')
 )
 fig_treemap.update_traces(
-    textfont=dict(color='white', size=13),
-    textinfo='label'
+    textfont=dict(color='white', size=13)
 )
 st.plotly_chart(fig_treemap, use_container_width=True)
 
