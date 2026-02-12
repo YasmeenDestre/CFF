@@ -324,26 +324,36 @@ with col2:
 # Treemap
 st.markdown("---")
 st.subheader("Investment Distribution")
+st.caption("Click en una sección para explorar. Click en la barra superior para regresar.")
 fig_treemap = px.treemap(
     filtered_df,
     path=['Region', 'Sector', 'City'],
     values='Investment',
-    color='Region',
-    color_discrete_map={
-        'Africa': '#2E86AB',
-        'Asia': '#A23B72',
-        'LatAm': '#F18F01',
-        '(?)': '#C73E1D'
-    }
+    color='Investment',
+    color_continuous_scale=[
+        [0, '#E3F2FD'],
+        [0.2, '#90CAF9'],
+        [0.4, '#42A5F5'],
+        [0.6, '#1E88E5'],
+        [0.8, '#1565C0'],
+        [1, '#0D47A1']
+    ]
 )
 fig_treemap.update_layout(
-    margin=dict(t=20, b=20, l=20, r=20),
+    margin=dict(t=30, b=20, l=20, r=20),
     paper_bgcolor='white',
-    font=dict(color='#1a1a1a', size=14)
+    font=dict(color='#1a1a1a', size=13),
+    coloraxis_colorbar=dict(
+        title="USD",
+        tickformat="$,.0f",
+        tickfont=dict(color='#1a1a1a'),
+        titlefont=dict(color='#1a1a1a')
+    )
 )
 fig_treemap.update_traces(
-    textfont=dict(color='white', size=14),
-    marker=dict(line=dict(color='white', width=2))
+    textfont=dict(color='white', size=13),
+    marker=dict(line=dict(color='white', width=2)),
+    hovertemplate='<b>%{label}</b><br>Investment: $%{value:,.0f}<extra></extra>'
 )
 st.plotly_chart(fig_treemap, use_container_width=True)
 
@@ -354,24 +364,40 @@ st.subheader("Project Details")
 display_df = filtered_df.copy()
 display_df['Investment'] = display_df['Investment'].apply(lambda x: f"${x:,.0f}")
 
+# Container with white background
+st.markdown("""
+<style>
+    .data-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 st.dataframe(
     display_df,
     use_container_width=True,
-    hide_index=True
+    hide_index=True,
+    column_config={
+        "City": st.column_config.TextColumn("City", width="medium"),
+        "Region": st.column_config.TextColumn("Region", width="small"),
+        "Sector": st.column_config.TextColumn("Sector", width="medium"),
+        "Investment": st.column_config.TextColumn("Investment", width="medium"),
+    }
 )
 
 # Download button
 st.markdown("")
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-    csv_data = filtered_df.to_csv(index=False).encode('utf-8')
-    st.download_button(
-        label="📥 Download Data (CSV)",
-        data=csv_data,
-        file_name='cff_phase3_data.csv',
-        mime='text/csv',
-        use_container_width=True
-    )
+csv_data = filtered_df.to_csv(index=False).encode('utf-8')
+st.download_button(
+    label="📥 Download Data (CSV)",
+    data=csv_data,
+    file_name='cff_phase3_data.csv',
+    mime='text/csv',
+    type="primary"
+)
 
 # Footer
 st.markdown("---")
